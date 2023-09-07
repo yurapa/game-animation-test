@@ -7,6 +7,7 @@ export enum GameAnimationState {
     RESULTING = 2,
     RESULT = 3,
     ERROR = 4,
+    LOADING =  5
 }
 
 export default function CoinTossUx({}) {
@@ -222,19 +223,19 @@ function BetForm({game, triggerAwaitingState}) {
     const updateWager = (event) => {
         const target = event.target;
         var value = target.value;
-        setWager(value);
+        setWager(Number(value));
     }
 
     const updateNumberCorrect = (event) => {
         const target = event.target;
         var value = target.value;
-        setNumberCorrect(value);
+        setNumberCorrect(Number(value));
     }
 
     const updateNumberOfCoins = (event) => {
         const target = event.target;
         var value = target.value;
-        setNumberOfCoins(value);
+        setNumberOfCoins(Number(value));
     }
 
     const updateSide = (event) => {
