@@ -43,7 +43,7 @@ Examples of the style of game we are seeking to develop over time can be seen he
 
 For this particular game, the best example is probably Rollbit's X-Flip (https://rollbit.com/x-flip) - [alterntivaly see ZKasino (https://play.zkasino.io/games/coin-flip) or 0xCoco (https://0xcocobets.com/games/heads-or-tails), but these are not as good]
 
-We are asking you to allocate a short amount of time to take this skeleton and create an interactive, animated, appealing UX on top of it.
+We are asking you to allocate a short amount of time (6-8 hours) to take this skeleton and create an interactive, animated, appealing UX on top of it.
 
 
 
