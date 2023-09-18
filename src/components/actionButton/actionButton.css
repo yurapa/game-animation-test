@@ -1,0 +1,29 @@
+.actionButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease 0s;
+    appearance: none;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    user-select: none;
+    padding: 0 24px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 14px;
+    color: rgb(20, 23, 34);
+    background: rgb(255, 232, 26);
+    box-shadow: rgba(255, 176, 25, 0.4) 0 0 10px, rgba(255, 255, 255, 0.2) 0px 1px 0px inset, rgba(0, 0, 0, 0.15) 0px -3px 0px inset, rgb(255, 135, 25) 0px 0px 15px inset;
+    height: 56px;
+    width: 100%;
+    max-width: 220px;
+    margin-bottom: 10px;
+    white-space: normal;
+}
+
+.actionButton:disabled {
+    opacity: 0.6
+}
