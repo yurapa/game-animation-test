@@ -1,6 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-import CoinTossUx from './components/coinToss.tsx';
+import CoinTossUx from './components/coin-toss/coinToss.tsx';
 
 function App() {
   return (

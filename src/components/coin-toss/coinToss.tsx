@@ -1,15 +1,15 @@
-import React, { createContext, useContext, useState, useMemo, useEffect, isValidElement } from 'react';
-import CoinToss, { EventEmit, BetResultEvent, GameResultEvent } from '../contract/coinToss.ts';
+import { createContext, useContext, useState, useMemo, useEffect, isValidElement } from 'react';
+import CoinToss, { EventEmit, BetResultEvent, GameResultEvent } from '../../contract/coinToss.ts';
 
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
-import  '@mui/material/styles';
 import Grid from '@mui/material/Grid';
+import '@mui/material/styles';
 
-import ActionButton from "./actionButton/actionButton.tsx";
-import Alert from "./alert/alert.tsx";
-import Bg from "./bg/bg.tsx";
-import Coin from './coin/coin.tsx';
+import ActionButton from "../action-button/action-button.tsx";
+import Alert from "../alert/alert.tsx";
+import CssBg from "../css-bg/css-bg.tsx";
+import Coin from '../coin/coin.tsx';
 
 import './coinToss.css';
 
@@ -36,8 +36,6 @@ export default function CoinTossUx({}) {
     const triggerAwaitingState = () => {
         setGameAnimationState(GameAnimationState.AWAITING);
     }
-
-
 
     const triggerResultingState = async (gameResultEvent) => {
         setGameAnimationState(GameAnimationState.RESULTING);
@@ -96,11 +94,9 @@ export default function CoinTossUx({}) {
 
             <GameCoinsContext.Provider value={{ selectedCoins, setSelectedCoins }}>
                 <GameAnimation gameState={gameAnimationState} gameResult={lastGameResultEvent} />
-                <br />
                 <BetForm game={game} triggerAwaitingState={triggerAwaitingState}/>
             </GameCoinsContext.Provider>
 
-            <br />
             <GameHistory gameHistory={gameHistory} />
             <BetHistory betHistory={betHistory} />
         </>
@@ -108,18 +104,14 @@ export default function CoinTossUx({}) {
 
 }
 
-
 function GameAnimation({gameState, gameResult}) {
     const isResult = gameState == GameAnimationState.RESULT;
     const isSpin = gameState == GameAnimationState.AWAITING || gameState == GameAnimationState.RESULTING;
-
     const { selectedCoins } = useContext(GameCoinsContext);
-
-    console.log('gameResult :::', gameResult);
 
     return (
         <>
-            GameAnimationState: {GameAnimationState[gameState]?.toString()}
+            {GameAnimationState[gameState]?.toString()}
             {isResult ? `: ${(gameResult.simulationResult).toString()}` : ""}
 
             <div className="coinsList">
@@ -195,8 +187,6 @@ function BetHistory({betHistory}) {
     )
 
 }
-
-
 
 function BetForm({game, triggerAwaitingState}) {
 
@@ -284,8 +274,6 @@ function BetForm({game, triggerAwaitingState}) {
 
     return (
         <>
-            <Bg />
-
             <div className="container">
                 <Grid item xs={12} sm={8}>
                     {
@@ -303,80 +291,82 @@ function BetForm({game, triggerAwaitingState}) {
                             )
                             :
                             (
-                                <div className="">
-                                    {/*<Alert severity="error">Invalid bet: {invalidReason}</Alert>*/}
-                                    <Alert>Invalid bet: {invalidReason}</Alert>
-                                </div>
+                                <Alert>Invalid bet: {invalidReason}</Alert>
                             )
                     }
                 </Grid>
             </div>
 
-                <Grid container spacing={2} justifyContent="center">
-                    <Grid item xs={12} sm={4} md={3}>
-                        {/* <label >Number of Coins</label> */}
-                        {/* <input className="" id="numberOfCoins" name="numberOfCoins" type="number" min="1" max="10" step="1" placeholder="1" value={numberOfCoins} onChange={updateNumberOfCoins}></input> */}
-                        <Typography id="numberOfCoins" gutterBottom>Number of Coins: {numberOfCoins}</Typography>
-                        <Slider aria-label="numberOfCoins"
-                                aria-labelledby="numberOfCoins"
-                                value={typeof numberOfCoins === 'number' ? numberOfCoins : 1}
-                                step={1}
-                                min={1}
-                                max={10}
-                                color="secondary"
-                                onChange={updateNumberOfCoins}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} sm={4} md={3}>
-                        {/* <label>Wager</label> */}
-                        {/* <input className="" id="wager" name="wager" type="number" min="1" max="10" step="1" placeholder="1" value={wager} onChange={updateWager} /> */}
-                        <Typography id="wager" gutterBottom>Wager: {wager}</Typography>
-                        <Slider aria-label="wager"
-                                aria-labelledby="wager"
-                                value={typeof wager === 'number' ? wager : 1}
-                                step={1}
-                                min={1}
-                                max={10}
-                                color="secondary"
-                                onChange={updateWager}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12} sm={4} md={3}>
-                        {/*<label >Number Correct</label>*/}
-                        {/*<input className="" id="numberCorrect" name="numberCorrect" type="number" min="1" max="10" step="1" placeholder="1" value={numberCorrect} onChange={updateNumberCorrect}></input>*/}
-
-                        <Typography id="numberCorrect" gutterBottom>Number Correct: {numberCorrect}</Typography>
-                        <Slider aria-label="numberCorrect"
-                                aria-labelledby="numberCorrect"
-                                value={typeof numberCorrect === 'number' ? numberCorrect : 1}
-                                step={1}
-                                min={1}
-                                max={10}
-                                color="secondary"
-                                onChange={updateNumberCorrect}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <label htmlFor="isHeads">Side (is heads)</label>
-                        <input
-                            className="" id="isHeads" name="isHeads" type="checkbox"
-                            placeholder="true" checked={side==0}
-                            onChange={updateSide} />
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                    </Grid>
+            <Grid container spacing={8} justifyContent="center">
+                <Grid item xs={12} sm={4} md={3}>
+                    {/* <label >Number of Coins</label> */}
+                    {/* <input className="" id="numberOfCoins" name="numberOfCoins" type="number" min="1" max="10" step="1" placeholder="1" value={numberOfCoins} onChange={updateNumberOfCoins}></input> */}
+                    <Typography id="numberOfCoins" gutterBottom>Number of Coins: {numberOfCoins}</Typography>
+                    <Slider aria-label="numberOfCoins"
+                            aria-labelledby="numberOfCoins"
+                            value={typeof numberOfCoins === 'number' ? numberOfCoins : 1}
+                            step={1}
+                            min={1}
+                            max={10}
+                            color="secondary"
+                            onChange={updateNumberOfCoins}
+                    />
                 </Grid>
 
+                <Grid item xs={12} sm={4} md={3}>
+                    {/* <label>Wager</label> */}
+                    {/* <input className="" id="wager" name="wager" type="number" min="1" max="10" step="1" placeholder="1" value={wager} onChange={updateWager} /> */}
+                    <Typography id="wager" gutterBottom>Wager: {wager}</Typography>
+                    <Slider aria-label="wager"
+                            aria-labelledby="wager"
+                            value={typeof wager === 'number' ? wager : 1}
+                            step={1}
+                            min={1}
+                            max={10}
+                            color="secondary"
+                            onChange={updateWager}
+                    />
+                </Grid>
+
+                <Grid item xs={12} sm={4} md={3}>
+                    {/*<label >Number Correct</label>*/}
+                    {/*<input className="" id="numberCorrect" name="numberCorrect" type="number" min="1" max="10" step="1" placeholder="1" value={numberCorrect} onChange={updateNumberCorrect}></input>*/}
+
+                    <Typography id="numberCorrect" gutterBottom>Number Correct: {numberCorrect}</Typography>
+                    <Slider aria-label="numberCorrect"
+                            aria-labelledby="numberCorrect"
+                            value={typeof numberCorrect === 'number' ? numberCorrect : 1}
+                            step={1}
+                            min={1}
+                            max={10}
+                            color="secondary"
+                            onChange={updateNumberCorrect}
+                    />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <label htmlFor="isHeads">Side (is heads)</label>
+                    <input
+                        className="" id="isHeads" name="isHeads" type="checkbox"
+                        placeholder="true" checked={side==0}
+                        onChange={updateSide}
+                    />
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </Grid>
+            </Grid>
+
             <div className="container">
-                <ActionButton />
-                <button className="actionButton" onClick={validBet ? placeBet : ()=>{}} disabled={!validBet }>Place Bet</button>
-                {/* <input type="button" value="Place Bet" onClick={validBet ? placeBet : ()=>{}} disabled={!validBet } /> */}
+                <ActionButton
+                    disabled={!validBet}
+                    onClick={validBet ? placeBet : ()=>{}}
+                />
             </div>
+
+            <CssBg />
         </>
     )
 

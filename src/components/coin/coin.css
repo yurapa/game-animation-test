@@ -1,10 +1,11 @@
-#coin {
+.coin {
     position: relative;
     width: 100px;
     height: 100px;
     margin: 0 auto;
 }
-#coin div {
+
+.coin div {
     width: 100%;
     height: 100%;
     color: #fafafa;
@@ -16,18 +17,20 @@
     border-radius: 50%;
     box-shadow: inset 0 0 45px rgba(255, 255, 255, 0.3), 0 12px 20px -10px rgba(0, 0, 0, 0.4);
 }
+
 .side-a {
-    background-color: #bb9600;
+    background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
 }
+
 .side-b {
     background-color: #3e3e3e;
 }
 
-#coin {
+.coin {
     transition: -webkit-transform 1s ease-in;
     -webkit-transform-style: preserve-3d;
 }
-#coin div {
+.coin div {
     position: absolute;
     -webkit-backface-visibility: hidden;
 }
@@ -38,14 +41,15 @@
     -webkit-transform: rotateY(-180deg);
 }
 
-#coin.spin {
+.coin.spin {
     animation: flipDefault 2s linear infinite forwards;
 }
 
-#coin.heads {
+.coin.heads {
     animation: flipHeads 2s ease-out forwards;
 }
-#coin.tails {
+
+.coin.tails {
     animation: flipTails 2s ease-out forwards;
 }
 

@@ -1,25 +1,23 @@
-.App {
-  position: relative;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  transition: all 250ms ease 0s;
-}
-
 .coinsList {
+  max-width: 600px;
   display: flex;
   flex-wrap: wrap;
-  margin: 30px 0;
+  justify-content: space-around;
+  gap: 16px;
+  padding: 0 16px;
+  margin: 56px auto;
 }
 
 .container {
   width: 100%;
+  max-width: 1200px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
   box-sizing: border-box;
+  padding: 0 16px;
+  margin: 0 auto;
 }
 
 .validBet {
@@ -30,7 +28,7 @@
   text-transform: uppercase;
   font-weight: 700;
   line-height: 20px;
-  margin: 50px 0;
+  margin: 20px 0;
 }
 
 .validBet__payout {

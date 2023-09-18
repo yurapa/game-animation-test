@@ -1,13 +1,11 @@
 import './coin.css';
 
-export default function Coin({ animation}) {
-    // const faces = ["heads", "tails"];
+export default function Coin({animation}) {
 
     return (
-        <div id="coin" className={animation} key={+new Date()}>
-            <div className="side-a">TAIL</div>
-            <div className="side-b">HEAD</div>
+        <div className={`coin ${animation ? animation : ''}`}>
+            <div className="side-a">HEAD</div>
+            <div className="side-b">TAIL</div>
         </div>
     );
-
 }
