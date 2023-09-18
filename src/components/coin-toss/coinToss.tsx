@@ -4,6 +4,7 @@ import CoinToss, { EventEmit, BetResultEvent, GameResultEvent } from '../../cont
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import CircularProgress from '@mui/material/CircularProgress';
 import '@mui/material/styles';
 
 import ActionButton from "../action-button/action-button.tsx";
@@ -25,13 +26,14 @@ export enum GameAnimationState {
 const GameCoinsContext = createContext(null);
 
 export default function CoinTossUx({}) {
-
     const [game, setGame] = useState();
-    const [gameAnimationState, setGameAnimationState] = useState(GameAnimationState.IDLE);
+    const [gameAnimationState, setGameAnimationState] = useState(GameAnimationState.LOADING);
     const [lastGameResultEvent, setLastGameResultEvent] = useState(null);
     const [gameHistory, setGameHistory] = useState([]);
     const [betHistory, setBetHistory] = useState([]);
     const [selectedCoins, setSelectedCoins] = useState(1);
+
+    const isLoading = gameAnimationState === GameAnimationState.LOADING;
 
     const triggerAwaitingState = () => {
         setGameAnimationState(GameAnimationState.AWAITING);
@@ -68,7 +70,9 @@ export default function CoinTossUx({}) {
                 callbackHandler
             )
             setGame(g);
-        
+
+            const timer = setTimeout(() => setGameAnimationState(GameAnimationState.IDLE), 3000);
+            return () => clearTimeout(timer);
         }, []
     )
     
@@ -92,13 +96,25 @@ export default function CoinTossUx({}) {
                 </h1>
             </div>
 
-            <GameCoinsContext.Provider value={{ selectedCoins, setSelectedCoins }}>
-                <GameAnimation gameState={gameAnimationState} gameResult={lastGameResultEvent} />
-                <BetForm game={game} triggerAwaitingState={triggerAwaitingState}/>
-            </GameCoinsContext.Provider>
+            {isLoading &&
+                <div className="container">
+                    <CircularProgress color="inherit" />
+                </div>
+            }
 
-            <GameHistory gameHistory={gameHistory} />
-            <BetHistory betHistory={betHistory} />
+            {!isLoading &&
+                <>
+                    <GameCoinsContext.Provider value={{ selectedCoins, setSelectedCoins }}>
+                        <GameAnimation gameState={gameAnimationState} gameResult={lastGameResultEvent} />
+                        <BetForm game={game} triggerAwaitingState={triggerAwaitingState}/>
+                    </GameCoinsContext.Provider>
+
+                    <GameHistory gameHistory={gameHistory} />
+                    <BetHistory betHistory={betHistory} />
+                </>
+            }
+
+            <CssBg />
         </>
     )
 
@@ -365,8 +381,6 @@ function BetForm({game, triggerAwaitingState}) {
                     onClick={validBet ? placeBet : ()=>{}}
                 />
             </div>
-
-            <CssBg />
         </>
     )
 
